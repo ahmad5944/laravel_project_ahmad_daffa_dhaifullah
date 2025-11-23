@@ -3,15 +3,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kategori_id', 'nama', 'deskripsi', 'harga', 'stok', 'foto'];
+    protected $fillable = ['user_id', 'tanggal', 'total', 'bukti_pembayaran', 'status_pembayaran'];
 
-    public function category()
+    public function user()
     {
-        return $this->belongsTo(Category::class, 'kategori_id');
+        return $this->belongsTo(User::class);
     }
 
     public function orderProducts()
