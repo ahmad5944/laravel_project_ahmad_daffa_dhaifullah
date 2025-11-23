@@ -1,85 +1,50 @@
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-    id="layout-navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
 
-    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-            <i class="bx bx-menu bx-sm"></i>
+        <a class="navbar-brand fw-bold text-primary" href="#">
+            TokoKu
         </a>
-    </div>
 
-    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-            <!-- User -->
-            <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home</a>
+                </li>
 
-                    {{-- ICON PROFIL (GANTI AVATAR GAMBAR) --}}
-                    <div class="avatar avatar-online d-flex align-items-center justify-content-center 
-                        bg-primary text-white rounded-circle" style="width:40px; height:40px;">
-                        <i class="bx bx-user fs-4"></i>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Produk</a>
+                </li>
 
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end">
-
-                    <!-- PROFILE HEADER DROPDOWN -->
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0 me-3">
-                                    <div class="avatar avatar-online d-flex align-items-center justify-content-center 
-                                        bg-primary text-white rounded-circle" style="width:40px; height:40px;">
-                                        <i class="bx bx-user fs-4"></i>
-                                    </div>
-                                </div>
-
-                                <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                    <small class="text-muted">{{ Auth::user()->role ?? 'User' }}</small>
-                                </div>
-                            </div>
-                        </a>
+                {{-- Muncul hanya kalau sudah login --}}
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pesanan</a>
                     </li>
 
-                    <li><div class="dropdown-divider"></div></li>
-
-                    {{-- MENU PROFILE --}}
-                    {{-- <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembayaran</a>
                     </li>
+                @endauth
+            </ul>
 
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li> --}}
+            {{-- Kalau belum login tampilkan tombol Login --}}
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-primary ms-lg-3">Login</a>
+            @endguest
 
-                    {{-- <li><div class="dropdown-divider"></div></li> --}}
+            {{-- Kalau sudah login tampilkan tombol Logout --}}
+            @auth
+                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-danger ms-lg-3">Logout</button>
+                </form>
+            @endauth
 
-                    {{-- LOGOUT --}}
-                    <li>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </li>
-
-                </ul>
-            </li>
-            <!--/ User -->
-        </ul>
-
+        </div>
     </div>
 </nav>
